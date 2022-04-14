@@ -1,35 +1,48 @@
 ﻿using System.Text;
+using Newtonsoft.Json.Linq;
 
 namespace comandos.kiper
 {
     class Comandos
     {
-        public string Insert_user(List<long> lista_Tags, long id, ushort user_type, DateTime valid_from, DateTime valid_until, int access_counter, List<Dictionary<string, long>> lista_ipwall_access_tag, long user_id, int set_rf_id)
+        public string Insert_user(List<long> listaTags, long id, ushort userType, string validFrom, string validUntil, int accessCounter, JArray listaIpwallAccessTag, long userId, int setRfId, JArray listaRfId, int openingTime)
         {
-            //------------- Formata a lista de acesso a ipwall -----------
-            StringBuilder sbIpwall_access_tag = new StringBuilder();            
-            int contDics = 0;
-            int contItems = 0;
-            sbIpwall_access_tag.Append("[");
-            foreach (var dics in lista_ipwall_access_tag)
-            {
-                contDics++;
-                sbIpwall_access_tag.Append("{");
-                foreach (KeyValuePair<string, long> item in dics)
-                {
-                    sbIpwall_access_tag.Append($"\"{item.Key}\": {item.Value}");
-                    if (contItems == 0) sbIpwall_access_tag.Append(",");
-                    contItems++;
-                }
-                contItems = 0;
-                sbIpwall_access_tag.Append("}");
-                if (contDics < lista_ipwall_access_tag.Count) sbIpwall_access_tag.Append(",");
-            }
-            sbIpwall_access_tag.Append("]");
-            //------------------------ Fim ----------------------
 
-            string comando = "{\"cmd\": \"insert_user\", \"id\": " + id + ", \"datetime\": \"" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + " \", \"params\":{\"user_id\": " + user_id + ", \"user_type\": ' + str(user_type) + ', \"tag_id\": {"+ String.Join(",", lista_Tags) + "}, \"ipwall_access_tag\":  "+ sbIpwall_access_tag + ", \"set_rf_id\": "+ set_rf_id + ", \"rf\":[{\"rf_id\": 55638271, \"counter_rf\": 563}], \"blocked\": 0, \"opening_time\": 0, \"secret\" : \"5QGXPJHM5TSXHZ64G5R6MNI6W5PI2XDRQVTWDWRDCMTRMES63TJGWRH5SUUEX6V23GGTAECIZKRWEHSTW5M65NWLEZYB3CZAGCO7CSQ\", \"restrict_access\": false, \"days_of_week\": null, \"administrator\" : false, \"valid\":  {\"valid_from\" : "' + str(valid_from) + '", \"valid_until\" : "' + str(valid_until) + '", \"access_counter\": ' + str(access_counter) + '}}} \n";
+            string sbIpwallAccessTag = FormatarJsonArray(listaIpwallAccessTag);
+            string sbRfId = FormatarJsonArray(listaRfId);
+
+            string comando = "{\"cmd\": \"insert_user\", \"id\": " + id + ", \"datetime\": \"" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " \", \"params\":{\"user_id\": " + userId + ", \"user_type\": "+userType+", \"tag_id\": ["+ String.Join(",", listaTags) + "], \"ipwall_access_tag\":  "+ sbIpwallAccessTag + ", \"set_rf_id\": "+ setRfId + ", \"rf\": "+ sbRfId + ", \"blocked\": 0, \"opening_time\": "+openingTime+", \"secret\" : \"5QGXPJHM5TSXHZ64G5R6MNI6W5PI2XDRQVTWDWRDCMTRMES63TJGWRH5SUUEX6V23GGTAECIZKRWEHSTW5M65NWLEZYB3CZAGCO7CSQ\", \"restrict_access\": false, \"days_of_week\": null, \"administrator\" : false, \"valid\":  {\"valid_from\" : \" "+validFrom+"\", \"valid_until\" : \""+(validUntil)+ "\", \"access_counter\": "+accessCounter+"}}} \n";
             return comando;
+        }
+
+
+        private string FormatarJsonArray(JArray jArray)
+        {
+            if (jArray.Count() != 0)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append('[');
+                int cont = 0;
+                foreach (JToken conteudo in jArray)
+                {
+                    cont++;
+                    sb.Append('{');
+                    string conteudoLinhaUnica = string.Join(",", conteudo);
+                    sb.Append(conteudoLinhaUnica);
+                    sb.Append('}');
+                    if (jArray.Count() >= cont+1)
+                    {
+                        sb.Append(',');
+                    }
+                }
+                sb.Append(']');
+                return sb.ToString();
+            }
+            else
+            {
+                return "null";
+            }
+            
         }
     }
 }
