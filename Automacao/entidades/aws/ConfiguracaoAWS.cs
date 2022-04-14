@@ -23,12 +23,20 @@ namespace entidades.aws
             ClientId = clientId;
             CertPass = certPass;
 
-            CertificatesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "certs");
-            CaCertPath = Path.Combine(CertificatesPath, "AmazonRootCA1.pem");
-            CaCert = X509Certificate.CreateFromCertFile(CaCertPath);
-            DeviceCertPath = Path.Combine(CertificatesPath, "certificate.cert.pfx");
-            DeviceCert = new X509Certificate(DeviceCertPath, CertPass);
-            Client = new MqttClient(Broker, Port, true, CaCert, DeviceCert, MqttSslProtocols.TLSv1_2);
+            try
+            {
+                CertificatesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "certs");
+                CaCertPath = Path.Combine(CertificatesPath, "AmazonRootCA1.pem");
+                CaCert = X509Certificate.CreateFromCertFile(CaCertPath);
+                DeviceCertPath = Path.Combine(CertificatesPath, "certificate.cert.pfx");
+                DeviceCert = new X509Certificate(DeviceCertPath, CertPass);
+                Client = new MqttClient(Broker, Port, true, CaCert, DeviceCert, MqttSslProtocols.TLSv1_2);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                Environment.Exit(0);
+            }
 
             Client.Connect(ClientId);
             Console.WriteLine($"Connected to AWS IoT with client id: {clientId}");

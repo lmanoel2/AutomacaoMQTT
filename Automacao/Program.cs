@@ -11,9 +11,13 @@ string serialCPU = "131274";
 string topicPublish = $"Kiper/Device/Sended/{serialCPU}";
 string topicSubscribe = $"Kiper/Device/Received/{serialCPU}";
 
+
 ConfiguracaoAWS clientAWS = new(broker, port, clientId, certPass);
 ComunicacaoMQTT device = new(clientAWS, topicPublish, topicSubscribe);
+
+ushort result = await device.Subscribe();
+
 device.Publish("Testando");
-device.Subscribe();
 Console.ReadKey();
+
 
