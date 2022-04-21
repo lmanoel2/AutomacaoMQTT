@@ -9,15 +9,19 @@ namespace servicos.aws
         private ConfiguracaoAWS DeviceAWS;
         private string TopicPublish;
         private string TopicSubscribe;
+        public bool IsSubscribe { get; set; }
 
         public ComunicacaoMQTT(ConfiguracaoAWS clientAWS, string topicPublish, string topicSubscribe)
         {
             DeviceAWS = clientAWS;
             TopicPublish = topicPublish;
             TopicSubscribe = topicSubscribe;
+            IsSubscribe = false;
+
 
             DeviceAWS.Client.MqttMsgSubscribed += IotClient_MqttMsgSubscribed;
             DeviceAWS.Client.MqttMsgPublishReceived += IotClient_MqttMsgPublishReceived;
+
         }
 
         public void Publish(string mensagem)
@@ -26,7 +30,7 @@ namespace servicos.aws
             Console.WriteLine($"Published: {mensagem}");
         }
 
-        public async Task<ushort> Subscribe()
+        public void Subscribe()
         {
             var result = DeviceAWS.Client.Subscribe(new string[] { TopicSubscribe }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE });
 
@@ -36,15 +40,19 @@ namespace servicos.aws
                 Console.WriteLine("Saindo...");
                 Environment.Exit(0);
             }
-            return result;
+            while (!IsSubscribe)
+            {
+            }
         }
         private static void IotClient_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
             Console.WriteLine("Mensagem recebida: " + Encoding.UTF8.GetString(e.Message));
         }
-        private static void IotClient_MqttMsgSubscribed(object sender, MqttMsgSubscribedEventArgs e)
+        private void IotClient_MqttMsgSubscribed(object sender, MqttMsgSubscribedEventArgs e)
         {
             Console.WriteLine($"Subscrito com sucesso!");
+            IsSubscribe = true;
+
         }
     }
 }

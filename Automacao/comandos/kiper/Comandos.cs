@@ -1,10 +1,18 @@
 ﻿using System.Text;
+using Automacao.comandos.kiper;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace comandos.kiper
 {
     class Comandos
     {
+        public static void InsertUser(User user)
+        {
+            var json = JsonConvert.SerializeObject(user);
+            Console.WriteLine(json);
+        }
+
         public string Insert_user(List<long> listaTags, long id, ushort userType, string validFrom, string validUntil, int accessCounter, JArray listaIpwallAccessTag, long userId, int setRfId, JArray listaRfId, int openingTime)
         {
 
