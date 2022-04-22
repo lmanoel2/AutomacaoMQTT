@@ -20,7 +20,7 @@ ComunicacaoMQTT device = new(clientAWS, topicPublish, topicSubscribe);
 device.Subscribe();
 
 User userManoel = new User(2941, 0, 2, "123DWAD4AW", 8, true, DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"), DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"), 2);
-userManoel.AddTag(123);
+//userManoel.AddTag(123);
 //userManoel.AddTag(3333);
 Comandos.InsertUser(userManoel);
 

@@ -1,6 +1,6 @@
 ﻿using System.Text;
+using System.Text.Json;
 using Automacao.comandos.kiper;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace comandos.kiper
@@ -9,8 +9,13 @@ namespace comandos.kiper
     {
         public static void InsertUser(User user)
         {
-            var json = JsonConvert.SerializeObject(user);
-            Console.WriteLine(json);
+            var serializeOptions = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+            var jsonString =JsonSerializer.Serialize(user, serializeOptions);
+
+            Console.WriteLine(jsonString);
         }
 
         public string Insert_user(List<long> listaTags, long id, ushort userType, string validFrom, string validUntil, int accessCounter, JArray listaIpwallAccessTag, long userId, int setRfId, JArray listaRfId, int openingTime)
