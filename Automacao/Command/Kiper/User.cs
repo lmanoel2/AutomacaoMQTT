@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
-using System.Text;
+﻿
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
-namespace Automacao.comandos.kiper
+
+namespace Automacao.Command.Kiper
 {
+   
     class User
     {
         [JsonPropertyName("user_id")]
@@ -25,14 +21,22 @@ namespace Automacao.comandos.kiper
         public bool Administrator { get; set; }
         [JsonPropertyName("tag_id")]
         public List<long>? Tags { get; set; } = new List<long>();
+        [JsonPropertyName("ipwall_access_tag")]
         public List<Ipwall>? IpwallAccess { get; set; } = new List<Ipwall>();
+        [JsonPropertyName("rf")]
         public List<Rf>? Rfs { get; set; } = new List<Rf>();
+        [JsonPropertyName("valid_from")]
         public string ValidFrom { get; set; }
+        [JsonPropertyName("valid_until")]
         public string ValidUntil { get; set; }
+        [JsonPropertyName("access_counter")]
         public int AccessCounter { get; set; }
-        
-        //DataContractJsonSerializer(typeof (List<string>))
-        public User(int userId, int userType, int setRfId, string secret, int openingTime, bool administrator, string validFrom, string validUntil, int accessCounter)
+        [JsonPropertyName("restrict_acess")]
+        public bool RestrictAccess { get; set; }
+        [JsonPropertyName("days_of_week")]
+        public int DaysWeek { get; set; }
+        public User(int userId, int userType, int setRfId, string secret, int openingTime, 
+                    bool administrator, string validFrom, string validUntil, int accessCounter, bool restrictAccess)
         {
             UserId = userId;
             UserType = userType;
@@ -43,15 +47,17 @@ namespace Automacao.comandos.kiper
             ValidFrom = validFrom;
             ValidUntil = validUntil;
             AccessCounter = accessCounter;
+            RestrictAccess = restrictAccess;
 
-            IpwallAccess = null;
+            Tags = null;
             Rfs = null;
-            //Tags = null;
+            IpwallAccess = null;
         }
 
 
         public void AddTag(long tag)
         {
+            if (Tags == null) Tags = new List<long>();
             Tags.Add(tag);
         }
     }

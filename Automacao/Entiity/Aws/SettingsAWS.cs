@@ -1,9 +1,9 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using uPLibrary.Networking.M2Mqtt;
 
-namespace entidades.aws
+namespace Entity.Aws
 {
-    class ConfiguracaoAWS
+    class SettingsAWS
     {
         private string Broker { get;  set; }
         private int Port { get;  set; }
@@ -16,7 +16,7 @@ namespace entidades.aws
         private X509Certificate DeviceCert { get;  set; }
         public MqttClient Client { get;  private set; }
 
-        public ConfiguracaoAWS(string broker, int port, string clientId, string certPass)
+        public SettingsAWS(string broker, int port, string clientId, string certPass)
         {
             Broker = broker;
             Port = port;

@@ -1,17 +1,17 @@
-﻿using entidades.aws;
+﻿using Entity.Aws;
 using System.Text;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
-namespace servicos.aws
+namespace Service.Aws
 {
-    class ComunicacaoMQTT
+    class MessagesAWS
     {
-        private ConfiguracaoAWS DeviceAWS;
+        private SettingsAWS DeviceAWS;
         private string TopicPublish;
         private string TopicSubscribe;
         public bool IsSubscribe { get; set; }
 
-        public ComunicacaoMQTT(ConfiguracaoAWS clientAWS, string topicPublish, string topicSubscribe)
+        public MessagesAWS(SettingsAWS clientAWS, string topicPublish, string topicSubscribe)
         {
             DeviceAWS = clientAWS;
             TopicPublish = topicPublish;
