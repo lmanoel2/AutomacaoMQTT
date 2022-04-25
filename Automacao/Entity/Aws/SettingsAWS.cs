@@ -5,10 +5,10 @@ namespace Automacao.Entity.Aws
 {
     class SettingsAWS
     {
-        private string Broker { get;  set; }
-        private int Port { get;  set; }
-        private string ClientId { get;  set; }
-        private string CertPass { get;  set; }
+        private string Broker = "a2q2wk17nbok8r-ats.iot.eu-west-1.amazonaws.com";
+        private int Port = 8883;
+        private string ClientId = "TesteAutomacao";
+        private string CertPass = "kiper";
         private string CertificatesPath { get;  set; }
         private string CaCertPath { get;  set; }
         private string DeviceCertPath { get;  set; }
@@ -16,13 +16,8 @@ namespace Automacao.Entity.Aws
         private X509Certificate DeviceCert { get;  set; }
         public MqttClient Client { get;  private set; }
 
-        public SettingsAWS(string broker, int port, string clientId, string certPass)
+        public SettingsAWS()
         {
-            Broker = broker;
-            Port = port;
-            ClientId = clientId;
-            CertPass = certPass;
-
             try
             {
                 CertificatesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "certs");
@@ -39,7 +34,7 @@ namespace Automacao.Entity.Aws
             }
 
             Client.Connect(ClientId);
-            Console.WriteLine($"Connected to AWS IoT with client id: {clientId}");
+            Console.WriteLine($"Connected to AWS IoT with client id: {ClientId}");
         }
 
     }

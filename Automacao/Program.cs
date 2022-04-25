@@ -3,8 +3,10 @@ using Service.Aws;
 
 using Automacao.Entity.Aws;
 using Automacao.Command.Kiper.Params;
+using Automacao.Script;
 using static Automacao.Command.Kiper.Command;
 using static Automacao.Command.Enum.CommandEnum;
+
 
 //https://hexquote.com/aws-iot-with-net-core-mqtt/
 
@@ -16,8 +18,8 @@ string serialCPU = "105851";
 string topicPublish = $"Kiper/Device/Sended/{serialCPU}";
 string topicSubscribe = $"Kiper/Device/Received/{serialCPU}";
 
-SettingsAWS clientAws = new(broker, port, clientId, certPass);
-MessagesAWS device = new(clientAws, topicPublish, topicSubscribe);
+SettingsAWS clientAws = new();
+MessagesAWS device = new(clientAws, "105851");
 
 device.Subscribe();
 
@@ -43,6 +45,7 @@ User userManoel = new User( userId: 2941,
 
 SendCommand(INSERT_USER, userManoel, device);
 
+AcessoComTagValida.Execute();
 
 Console.ReadKey();
 

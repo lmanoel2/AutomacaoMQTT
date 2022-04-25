@@ -14,9 +14,9 @@ namespace Automacao.Command.Kiper.Requests
         [JsonPropertyName("id")]
         public long Id { get; set; }
         [JsonPropertyName("params")]
-        public User User { get; set; }
+        public object User { get; set; }
 
-        public InsertUserRequest(User user)
+        public InsertUserRequest(object user)
         {
             User = user;
             DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
