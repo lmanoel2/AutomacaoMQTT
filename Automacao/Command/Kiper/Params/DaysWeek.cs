@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Automacao.Command.Kiper.Params
 {
-    class DaysWeek
+    public class DaysWeek
     {
         [JsonPropertyName("monday")]
         public List<string>? Monday { get; set; } = new List<string>();

@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Automacao.Command.Kiper.Params
 {
-    class Ipwall
+    public class Ipwall
     {
         [JsonPropertyName("door_id")]
         public int DoorId { get; set; }

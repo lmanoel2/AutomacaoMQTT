@@ -2,13 +2,13 @@
 using System.Text.Json;
 using Automacao.Command.Enum;
 using Automacao.Command.Kiper.Params;
-using Service.Aws;
+using Automacao.Service.Aws;
 
 namespace Automacao.Command.Kiper
 {
     class Command
     {
-        public static void SendCommand(CommandEnum command, object user, MessagesAWS device)
+        public static void SendCommand(CommandEnum command, User user, MessagesAws device)
         {
             var serializeOptions = new JsonSerializerOptions
             {

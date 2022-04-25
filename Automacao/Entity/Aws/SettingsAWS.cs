@@ -3,7 +3,7 @@ using uPLibrary.Networking.M2Mqtt;
 
 namespace Automacao.Entity.Aws
 {
-    class SettingsAWS
+    public class SettingsAws
     {
         private string Broker = "a2q2wk17nbok8r-ats.iot.eu-west-1.amazonaws.com";
         private int Port = 8883;
@@ -16,7 +16,7 @@ namespace Automacao.Entity.Aws
         private X509Certificate DeviceCert { get;  set; }
         public MqttClient Client { get;  private set; }
 
-        public SettingsAWS()
+        public SettingsAws()
         {
             try
             {

@@ -1,25 +1,12 @@
-﻿using Automacao.Command.Enum;
-using Service.Aws;
-
-using Automacao.Entity.Aws;
+﻿using Automacao.Entity.Aws;
 using Automacao.Command.Kiper.Params;
 using Automacao.Script;
-using static Automacao.Command.Kiper.Command;
-using static Automacao.Command.Enum.CommandEnum;
-
+using Automacao.Service.Aws;
 
 //https://hexquote.com/aws-iot-with-net-core-mqtt/
 
-string broker = "a2q2wk17nbok8r-ats.iot.eu-west-1.amazonaws.com";
-int port = 8883;
-var clientId = "TesteAutomacao";
-string certPass = "kiper";
-string serialCPU = "105851";
-string topicPublish = $"Kiper/Device/Sended/{serialCPU}";
-string topicSubscribe = $"Kiper/Device/Received/{serialCPU}";
-
-SettingsAWS clientAws = new();
-MessagesAWS device = new(clientAws, "105851");
+SettingsAws clientAws = new();
+MessagesAws device = new(clientAws, "105851");
 
 device.Subscribe();
 
@@ -43,9 +30,9 @@ User userManoel = new User( userId: 2941,
                             ipwallAccess: new List<Ipwall>(){ipwall1, ipwall2},
                             rfs: new List<Rf>(){rf1, rf2});
 
-SendCommand(INSERT_USER, userManoel, device);
+//SendCommand(INSERT_USER, userManoel, device);
 
-AcessoComTagValida.Execute();
+AcessoComTagValida.Execute(device);
 
 Console.ReadKey();
 

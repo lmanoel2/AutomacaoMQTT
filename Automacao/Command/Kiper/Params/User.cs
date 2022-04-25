@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Automacao.Command.Kiper.Params
 {
-    class User
+    public class User
     {
         [JsonPropertyName("user_id")]
         public int? UserId { get; set; }

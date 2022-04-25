@@ -2,18 +2,18 @@
 using Automacao.Entity.Aws;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
-namespace Service.Aws
+namespace Automacao.Service.Aws
 {
-    class MessagesAWS
+    public class MessagesAws
     {
-        private SettingsAWS DeviceAWS;
+        private SettingsAws DeviceAWS;
         private string TopicPublish { get; set; }
         private string TopicSubscribe { get; set; }
         public bool IsSubscribe { get; set; }
 
-        public MessagesAWS(SettingsAWS clientAWS, string serialCpu)
+        public MessagesAws(SettingsAws clientAws, string serialCpu)
         {
-            DeviceAWS = clientAWS;
+            DeviceAWS = clientAws;
             TopicPublish = $"Kiper/Device/Sended/{serialCpu}";
             TopicSubscribe = $"Kiper/Device/Received/{serialCpu}";
             IsSubscribe = false;
@@ -26,7 +26,6 @@ namespace Service.Aws
         public void Publish(string mensagem)
         {
             DeviceAWS.Client.Publish(TopicPublish, Encoding.UTF8.GetBytes(mensagem));
-            Console.WriteLine($"Published: {mensagem}");
         }
 
         public void Subscribe()

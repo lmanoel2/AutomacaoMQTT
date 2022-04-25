@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Automacao.Command.Kiper.Params
 {
-    class Rf
+    public class Rf
     {
         [JsonPropertyName("rf_id")]
         public long RfId { get; set; }
