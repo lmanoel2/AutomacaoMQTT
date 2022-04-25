@@ -1,5 +1,5 @@
-﻿using Entity.Aws;
-using System.Text;
+﻿using System.Text;
+using Automacao.Entity.Aws;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
 namespace Service.Aws

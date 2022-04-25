@@ -2,19 +2,19 @@
 using System.Text.Json.Serialization;
 
 
-namespace Automacao.Command.Kiper
+namespace Automacao.Command.Kiper.Params
 {
    
     class User
     {
         [JsonPropertyName("user_id")]
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         [JsonPropertyName("user_type")]
         public int UserType { get; set; }
         [JsonPropertyName("set_rf_id")]
-        public int SetRfId { get; set; }
+        public int? SetRfId { get; set; }
         [JsonPropertyName("secret")]
-        public string Secret { get; set; }
+        public string? Secret { get; set; }
         [JsonPropertyName("opening_time")]
         public int OpeningTime { get; set; }
         [JsonPropertyName("administrator")]
@@ -26,17 +26,19 @@ namespace Automacao.Command.Kiper
         [JsonPropertyName("rf")]
         public List<Rf>? Rfs { get; set; } = new List<Rf>();
         [JsonPropertyName("valid_from")]
-        public string ValidFrom { get; set; }
+        public string? ValidFrom { get; set; }
         [JsonPropertyName("valid_until")]
-        public string ValidUntil { get; set; }
+        public string? ValidUntil { get; set; }
         [JsonPropertyName("access_counter")]
-        public int AccessCounter { get; set; }
+        public int? AccessCounter { get; set; }
         [JsonPropertyName("restrict_acess")]
         public bool RestrictAccess { get; set; }
         [JsonPropertyName("days_of_week")]
-        public int DaysWeek { get; set; }
-        public User(int userId, int userType, int setRfId, string secret, int openingTime, 
-                    bool administrator, string validFrom, string validUntil, int accessCounter, bool restrictAccess)
+        public DaysWeek? DaysWeek { get; set; }
+        public User(int? userId = null, int userType = 0, int? setRfId = null, string? secret = null, int openingTime = 3, 
+                    bool administrator = false, string? validFrom = null, string? validUntil = null, int? accessCounter = null, 
+                    bool restrictAccess = false, DaysWeek? daysWeek = null, List<Ipwall>? ipwallAccess = null, List<long>? tags = null,
+                    List<Rf>? rfs = null)
         {
             UserId = userId;
             UserType = userType;
@@ -48,16 +50,16 @@ namespace Automacao.Command.Kiper
             ValidUntil = validUntil;
             AccessCounter = accessCounter;
             RestrictAccess = restrictAccess;
-
-            Tags = null;
-            Rfs = null;
-            IpwallAccess = null;
+            DaysWeek = daysWeek;
+            IpwallAccess = ipwallAccess;
+            Tags = tags;
+            Rfs = rfs;
         }
 
 
         public void AddTag(long tag)
         {
-            if (Tags == null) Tags = new List<long>();
+            Tags ??= new List<long>();
             Tags.Add(tag);
         }
     }

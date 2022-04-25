@@ -1,6 +1,7 @@
 ﻿
 using System.Text.Json.Serialization;
 using Automacao.Command.Kiper.Core;
+using Automacao.Command.Kiper.Params;
 
 namespace Automacao.Command.Kiper.Requests
 {
@@ -21,6 +22,7 @@ namespace Automacao.Command.Kiper.Requests
             DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
             Id = 25;
             Cmd = "insert_user";
+            
         }
     }
 }

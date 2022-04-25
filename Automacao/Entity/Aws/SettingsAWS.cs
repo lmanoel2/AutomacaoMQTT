@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using uPLibrary.Networking.M2Mqtt;
 
-namespace Entity.Aws
+namespace Automacao.Entity.Aws
 {
     class SettingsAWS
     {
