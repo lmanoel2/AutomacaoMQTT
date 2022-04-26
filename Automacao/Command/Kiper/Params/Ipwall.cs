@@ -10,6 +10,8 @@ namespace Automacao.Command.Kiper.Params
         [JsonPropertyName("ipwall_id")]
         public int IpwallId { get; set; }
 
+        public string Ip { get; set; }
+        public string Name { get; set; }
         public Ipwall(int ipwallId, int doorId)
         {
             DoorId = doorId;

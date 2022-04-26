@@ -7,7 +7,6 @@ using Automacao.Service.Aws;
 
 SettingsAws clientAws = new();
 MessagesAws device = new(clientAws, "105851");
-
 device.Subscribe();
 
 
