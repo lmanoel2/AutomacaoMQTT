@@ -12,10 +12,12 @@ namespace Automacao.Command.Kiper.Params
 
         public string Ip { get; set; }
         public string Name { get; set; }
-        public Ipwall(int ipwallId, int doorId)
+        public Ipwall(int ipwallId, int doorId, string ip, string name)
         {
             DoorId = doorId;
             IpwallId = ipwallId;
+            Ip = ip;
+            Name = name;
         }
     }
 }
