@@ -1,7 +1,10 @@
 ﻿using Automacao.Entity.Aws;
-using Automacao.Command.Kiper.Params;
+using static Automacao.Entity.Profile;
 using Automacao.Script;
 using Automacao.Service.Aws;
+using Automacao.Command.Enum;
+using Automacao.Command.Kiper.Params;
+using Automacao.Entity;
 
 //https://hexquote.com/aws-iot-with-net-core-mqtt/
 
@@ -9,6 +12,7 @@ SettingsAws clientAws = new();
 MessagesAws device = new(clientAws, "105851");
 device.Subscribe();
 
+Profile profile = ChooseProfile(UsersEnum.MANOEL);
 
 // Ipwall ipwall1 = new Ipwall(506, 1);
 // Ipwall ipwall2= new Ipwall(508, 1);
