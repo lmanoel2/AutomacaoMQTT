@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Automacao.Entity.Aws;
+using Newtonsoft.Json.Linq;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
 namespace Automacao.Service.Aws
@@ -7,11 +8,11 @@ namespace Automacao.Service.Aws
     public class MessagesAws
     {
         private SettingsAws DeviceAWS;
-        private string TopicPublish { get; set; }
-        private string TopicSubscribe { get; set; }
+        private string TopicPublish { get;}
+        private string TopicSubscribe { get;}
         public bool IsSubscribe { get; set; }
 
-        public string MessageReceived { get; set; }
+        public MqttMsgPublishEventArgs MessageReceived { get; set; }
 
         public MessagesAws(SettingsAws clientAws, string serialCpu)
         {
@@ -30,12 +31,7 @@ namespace Automacao.Service.Aws
         {
             DeviceAWS.Client.Publish(TopicPublish, Encoding.UTF8.GetBytes(mensagem));
         }
-
-        // public static MqttMsgSubscribedEventArgs MessageReceived()
-        // {
-        //     return MqttMsgPublishEventArgs e;
-        // }
-
+        
         public void Subscribe()
         {
             var result = DeviceAWS.Client.Subscribe(new string[] {TopicSubscribe},
@@ -56,7 +52,7 @@ namespace Automacao.Service.Aws
         private void IotClient_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
             Console.WriteLine("Mensagem recebida: " + Encoding.UTF8.GetString(e.Message));
-            MessageReceived = Encoding.UTF8.GetString(e.Message);
+            MessageReceived =  e;
         }
 
         private void IotClient_MqttMsgSubscribed(object sender, MqttMsgSubscribedEventArgs e)
