@@ -11,6 +11,8 @@ namespace Automacao.Service.Aws
         private string TopicSubscribe { get; set; }
         public bool IsSubscribe { get; set; }
 
+        public string MessageReceived { get; set; }
+
         public MessagesAws(SettingsAws clientAws, string serialCpu)
         {
             DeviceAWS = clientAws;
@@ -21,12 +23,18 @@ namespace Automacao.Service.Aws
 
             DeviceAWS.Client.MqttMsgSubscribed += IotClient_MqttMsgSubscribed;
             DeviceAWS.Client.MqttMsgPublishReceived += IotClient_MqttMsgPublishReceived;
+            Subscribe();
         }
 
         public void Publish(string mensagem)
         {
             DeviceAWS.Client.Publish(TopicPublish, Encoding.UTF8.GetBytes(mensagem));
         }
+
+        // public static MqttMsgSubscribedEventArgs MessageReceived()
+        // {
+        //     return MqttMsgPublishEventArgs e;
+        // }
 
         public void Subscribe()
         {
@@ -45,9 +53,10 @@ namespace Automacao.Service.Aws
             }
         }
 
-        private static void IotClient_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
+        private void IotClient_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
             Console.WriteLine("Mensagem recebida: " + Encoding.UTF8.GetString(e.Message));
+            MessageReceived = Encoding.UTF8.GetString(e.Message);
         }
 
         private void IotClient_MqttMsgSubscribed(object sender, MqttMsgSubscribedEventArgs e)

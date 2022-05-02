@@ -5,10 +5,10 @@ namespace Automacao.Entity.Aws
 {
     public class SettingsAws
     {
-        private string Broker = "a2q2wk17nbok8r-ats.iot.eu-west-1.amazonaws.com";
-        private int Port = 8883;
-        private string ClientId = "TesteAutomacao";
-        private string CertPass = "kiper";
+        private readonly string _broker = "a2q2wk17nbok8r-ats.iot.eu-west-1.amazonaws.com";
+        private readonly int _port = 8883;
+        private readonly string _clientId = "TesteAutomacao";
+        private readonly string _certPass = "kiper";
         private string CertificatesPath { get;  set; }
         private string CaCertPath { get;  set; }
         private string DeviceCertPath { get;  set; }
@@ -24,17 +24,17 @@ namespace Automacao.Entity.Aws
                 CaCertPath = Path.Combine(CertificatesPath, "AmazonRootCA1.pem");
                 CaCert = X509Certificate.CreateFromCertFile(CaCertPath);
                 DeviceCertPath = Path.Combine(CertificatesPath, "certificate.cert.pfx");
-                DeviceCert = new X509Certificate(DeviceCertPath, CertPass);
-                Client = new MqttClient(Broker, Port, true, CaCert, DeviceCert, MqttSslProtocols.TLSv1_2);
+                DeviceCert = new X509Certificate(DeviceCertPath, _certPass);
+                Client = new MqttClient(_broker, _port, true, CaCert, DeviceCert, MqttSslProtocols.TLSv1_2);
             }
             catch(Exception ex)
             {
-                Console.WriteLine($"Error: {ex.Message}");
+                Console.WriteLine($"Erro --> {ex.Message}      {ex.Source}");
                 Environment.Exit(0);
             }
 
-            Client.Connect(ClientId);
-            Console.WriteLine($"Connected to AWS IoT with client id: {ClientId}");
+            Client.Connect(_clientId);
+            Console.WriteLine($"Connected to AWS IoT with client id: {_clientId}");
         }
 
     }

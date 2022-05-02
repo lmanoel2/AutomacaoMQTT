@@ -1,14 +1,14 @@
 ﻿using Automacao.Command.Kiper.Requests;
 using System.Text.Json;
 using Automacao.Command.Enum;
-using Automacao.Command.Kiper.Params;
+using Automacao.Entity;
 using Automacao.Service.Aws;
 
 namespace Automacao.Command.Kiper
 {
     class Command
     {
-        public static void SendCommand(CommandEnum command, User user, MessagesAws device)
+        public static void SendCommand(CommandEnum command, Profile profile, MessagesAws device)
         {
             var serializeOptions = new JsonSerializerOptions
             {
@@ -18,7 +18,7 @@ namespace Automacao.Command.Kiper
             switch (command)
             {
                 case CommandEnum.INSERT_USER:
-                    var jsonString = JsonSerializer.Serialize(new InsertUserRequest(user), serializeOptions);
+                    var jsonString = JsonSerializer.Serialize(new InsertUserRequest(profile.User), serializeOptions);
                     Console.WriteLine(jsonString);
                     device.Publish(jsonString);
                     break;
