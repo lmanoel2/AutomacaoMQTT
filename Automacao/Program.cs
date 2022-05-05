@@ -2,6 +2,7 @@
 using Automacao.Script;
 using Automacao.Service.Aws;
 using Automacao.Command.Enum;
+using Automacao.Command.Kiper.Params;
 using Automacao.Entity;
 
 //https://hexquote.com/aws-iot-with-net-core-mqtt/

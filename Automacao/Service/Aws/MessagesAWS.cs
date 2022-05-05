@@ -8,11 +8,12 @@ namespace Automacao.Service.Aws
     public class MessagesAws
     {
         private SettingsAws DeviceAWS;
-        private string TopicPublish { get;}
-        private string TopicSubscribe { get;}
+        private string TopicPublish { get; }
+        private string TopicSubscribe { get; }
         public bool IsSubscribe { get; set; }
 
-        public MqttMsgPublishEventArgs MessageReceived { get; set; }
+        public long IdMessages { get; set; }
+        public JObject MessageReceived { get; set; }
 
         public MessagesAws(SettingsAws clientAws, string serialCpu)
         {
@@ -20,6 +21,7 @@ namespace Automacao.Service.Aws
             TopicPublish = $"Kiper/Device/Sended/{serialCpu}";
             TopicSubscribe = $"Kiper/Device/Received/{serialCpu}";
             IsSubscribe = false;
+            IdMessages = 0;
 
 
             DeviceAWS.Client.MqttMsgSubscribed += IotClient_MqttMsgSubscribed;
@@ -31,7 +33,7 @@ namespace Automacao.Service.Aws
         {
             DeviceAWS.Client.Publish(TopicPublish, Encoding.UTF8.GetBytes(mensagem));
         }
-        
+
         public void Subscribe()
         {
             var result = DeviceAWS.Client.Subscribe(new string[] {TopicSubscribe},
@@ -51,8 +53,8 @@ namespace Automacao.Service.Aws
 
         private void IotClient_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
-            Console.WriteLine("Mensagem recebida: " + Encoding.UTF8.GetString(e.Message));
-            MessageReceived =  e;
+            Console.WriteLine("[INFO] Mensagem recebida: " + Encoding.UTF8.GetString(e.Message));
+            MessageReceived = JObject.Parse(Encoding.UTF8.GetString(e.Message));
         }
 
         private void IotClient_MqttMsgSubscribed(object sender, MqttMsgSubscribedEventArgs e)
@@ -60,5 +62,18 @@ namespace Automacao.Service.Aws
             Console.WriteLine($"Subscrito com sucesso!");
             IsSubscribe = true;
         }
+
+        // public async Task<bool> ResponseDevice(CancellationToken ctToken, JObject messageExpected, MessagesAws device)
+        // {
+        //     bool checkMessage = false;
+        //     await Task.Run(() =>
+        //     {
+        //         while (!ctToken.IsCancellationRequested || !checkMessage)
+        //         {
+        //             checkMessage = (messageExpected == device.MessageReceived);
+        //         }
+        //     });
+        //     return checkMessage;
+        // }
     }
 }
