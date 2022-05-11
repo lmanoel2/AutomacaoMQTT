@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automacao", "Automacao\Automacao.csproj", "{EAFCECF7-53EA-4EE6-94F2-B5AC40694C11}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automacao.Tests", "Automacao.Tests\Automacao.Tests.csproj", "{337EB09A-1497-420D-9493-E07A298EDB1C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{EAFCECF7-53EA-4EE6-94F2-B5AC40694C11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAFCECF7-53EA-4EE6-94F2-B5AC40694C11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAFCECF7-53EA-4EE6-94F2-B5AC40694C11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{337EB09A-1497-420D-9493-E07A298EDB1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{337EB09A-1497-420D-9493-E07A298EDB1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{337EB09A-1497-420D-9493-E07A298EDB1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{337EB09A-1497-420D-9493-E07A298EDB1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
