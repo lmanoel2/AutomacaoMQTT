@@ -11,7 +11,6 @@ namespace Automacao.Service.Aws
         private string TopicPublish { get; }
         private string TopicSubscribe { get; }
         public bool IsSubscribe { get; set; }
-
         public long IdMessages { get; set; }
         public JObject MessageReceived { get; set; }
 
@@ -41,8 +40,7 @@ namespace Automacao.Service.Aws
 
             if (result != 1)
             {
-                Console.WriteLine("Não foi possível subscrever no tópico");
-                Console.WriteLine("Saindo...");
+                Console.Write("[ERROR] Não foi possível subscrever no tópico. Saindo...");
                 Environment.Exit(0);
             }
 
@@ -53,27 +51,21 @@ namespace Automacao.Service.Aws
 
         private void IotClient_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
-            Console.WriteLine("[INFO] Mensagem recebida: " + Encoding.UTF8.GetString(e.Message));
+            Console.Write("[RECEBIDO] " + Encoding.UTF8.GetString(e.Message));
             MessageReceived = JObject.Parse(Encoding.UTF8.GetString(e.Message));
         }
 
         private void IotClient_MqttMsgSubscribed(object sender, MqttMsgSubscribedEventArgs e)
         {
-            Console.WriteLine($"Subscrito com sucesso!");
+            Console.WriteLine($"[INFO] Subscrito com sucesso!");
             IsSubscribe = true;
         }
 
-        // public async Task<bool> ResponseDevice(CancellationToken ctToken, JObject messageExpected, MessagesAws device)
-        // {
-        //     bool checkMessage = false;
-        //     await Task.Run(() =>
-        //     {
-        //         while (!ctToken.IsCancellationRequested || !checkMessage)
-        //         {
-        //             checkMessage = (messageExpected == device.MessageReceived);
-        //         }
-        //     });
-        //     return checkMessage;
-        // }
+        public JObject? GetMessageReceived()
+        {
+            return MessageReceived;
+        }
+        
+        
     }
 }

@@ -15,6 +15,10 @@ namespace Automacao.Command.Kiper.Requests
         public long Id { get; set; }
         [JsonPropertyName("params")]
         public object User { get; set; }
+        
+        [JsonPropertyName("esn")] 
+        public string Esn { get; set; }
+        
 
         public InsertUserRequest(User user)
         {
@@ -22,7 +26,8 @@ namespace Automacao.Command.Kiper.Requests
             DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
             Id = 25;
             Cmd = "insert_user";
-            
+            Esn = "1058511";
+
         }
     }
 }

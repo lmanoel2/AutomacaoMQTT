@@ -1,4 +1,3 @@
-
 using Automacao.Service.Aws;
 using static Automacao.Command.Kiper.Command;
 using static Automacao.Command.Enum.CommandEnum;
@@ -15,9 +14,13 @@ public static class AcessoComTagValida
     {
         long idMessageSended = SendCommand(INSERT_USER, profile, device);
         
-        Task<bool> resultAckInsertUser = ResponseDevice(new CancellationTokenSource(TimePassTag).Token, new Ack(idMessageSended),  device);
+        Task<bool> resultAckInsertUser = ResponseDevice(new CancellationTokenSource(TimeAck).Token, new Ack(25),  device);
         
-        await resultAckInsertUser;
+        //if (!await resultAckInsertUser) return;
+        
+        var x = await resultAckInsertUser;
+        Console.WriteLine(x);
+        Console.WriteLine("Passe a Tag");
   
     }
 }

@@ -1,4 +1,5 @@
-﻿using Automacao.Command.Kiper.Requests;
+﻿using System.Diagnostics;
+using Automacao.Command.Kiper.Requests;
 using System.Text.Json;
 using Automacao.Command.Enum;
 using Automacao.Command.Kiper.Core;
@@ -16,14 +17,14 @@ namespace Automacao.Command.Kiper
             
             var serializeOptions = new JsonSerializerOptions
             {
-                WriteIndented = true
+                WriteIndented = false
             };
 
             switch (command)
             {
                 case CommandEnum.INSERT_USER:
                     var jsonString = JsonSerializer.Serialize(new InsertUserRequest(profile.User), serializeOptions);
-                    Console.WriteLine(jsonString);
+                    Console.WriteLine("[ENVIADO] " + jsonString);
                     device.Publish(jsonString);
                     break;
             };
@@ -33,19 +34,18 @@ namespace Automacao.Command.Kiper
         public static async Task<bool> ResponseDevice(CancellationToken ctToken, ICommandBase messageExpected, MessagesAws device)
         {
             bool checkMessage = false;
-            JObject? messageExpectedJson = messageExpected as JObject;
-
-            if (messageExpectedJson is null)
-            {
-                Console.WriteLine($"[Error] Não foi possível converter {messageExpected.ToString()} em JObject");
-                return false;
-            }
-            
             await Task.Run(() =>
             {
-                while (!ctToken.IsCancellationRequested || !checkMessage)
+                while (!ctToken.IsCancellationRequested && !checkMessage)
                 {
-                    checkMessage = (messageExpectedJson == device.MessageReceived);
+                    if (device.GetMessageReceived() != null)
+                    {
+                        messageExpected.DateTimeNow = device.GetMessageReceived()?["datetime"].ToString();
+                        var jsonString = JsonSerializer.Serialize(messageExpected, new JsonSerializerOptions {WriteIndented = false});
+                        
+                        checkMessage = JToken.DeepEquals(JObject.Parse(jsonString), device.GetMessageReceived());
+                        return;
+                    }
                 }
             });
             return checkMessage;

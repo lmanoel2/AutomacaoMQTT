@@ -12,12 +12,15 @@ public class Ack : ICommandBase
     public string DateTimeNow { get; set; }
     [JsonPropertyName("id")]
     public long Id { get; set; }
+    [JsonPropertyName("esn")] 
+    public string Esn { get; set; }
     
     public Ack(long id)
     {
         Cmd = "ack";
         DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
         Id = id;
+        Esn = "1058511";
     }
     
 }
