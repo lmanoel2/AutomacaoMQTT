@@ -23,7 +23,7 @@ namespace Automacao.Command.Kiper
             switch (command)
             {
                 case CommandEnum.INSERT_USER:
-                    var jsonString = JsonSerializer.Serialize(new InsertUserRequest(profile.User), serializeOptions);
+                    var jsonString = JsonSerializer.Serialize(new InsertUserRequest(profile.User, device.IdMessages), serializeOptions);
                     Console.WriteLine("[ENVIADO] " + jsonString);
                     device.Publish(jsonString);
                     break;

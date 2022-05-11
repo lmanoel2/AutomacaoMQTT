@@ -20,14 +20,13 @@ namespace Automacao.Command.Kiper.Requests
         public string Esn { get; set; }
         
 
-        public InsertUserRequest(User user)
+        public InsertUserRequest(User user, long id)
         {
             User = user;
             DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
-            Id = 25;
+            Id = id;
             Cmd = "insert_user";
             Esn = "1058511";
-
         }
     }
 }

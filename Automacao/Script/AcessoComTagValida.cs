@@ -4,23 +4,19 @@ using static Automacao.Command.Enum.CommandEnum;
 using Automacao.Entity;
 using static Automacao.Entity.Time;
 using Automacao.Command.Kiper.Responses;
+using Automacao.Actions;
 
 
 namespace Automacao.Script;
 
 public static class AcessoComTagValida
 {
-    public static async Task Execute(MessagesAws device, Profile profile)
+    public static async Task<bool> Execute(MessagesAws device, Profile profile)
     {
-        long idMessageSended = SendCommand(INSERT_USER, profile, device);
-        
-        Task<bool> resultAckInsertUser = ResponseDevice(new CancellationTokenSource(TimeAck).Token, new Ack(25),  device);
-        
-        //if (!await resultAckInsertUser) return;
-        
-        var x = await resultAckInsertUser;
-        Console.WriteLine(x);
-        Console.WriteLine("Passe a Tag");
-  
+        var resultInsertUser = await InsertUser.Execute(profile, device);
+
+        if (!resultInsertUser) return false;
+
+        return true;
     }
 }

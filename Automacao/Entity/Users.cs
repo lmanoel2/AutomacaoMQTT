@@ -7,7 +7,8 @@ namespace Automacao.Entity
         
         public static User UserManoel()
         {
-            User Manoel = new User(userId: 2941,
+            User Manoel = new User(
+                userId: 2941,
                 userType: 0,
                 setRfId: 2,
                 secret: "123DWAD4AW",
