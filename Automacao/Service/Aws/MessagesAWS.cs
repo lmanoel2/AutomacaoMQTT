@@ -65,6 +65,11 @@ namespace Automacao.Service.Aws
         {
             return MessageReceived;
         }
+
+        public void Finish()
+        {
+            DeviceAWS.Client.Disconnect();
+        }
         
         
     }

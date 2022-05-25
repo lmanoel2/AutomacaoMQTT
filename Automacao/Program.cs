@@ -1,5 +1,6 @@
-﻿using Automacao.Entity.Aws;
-using Automacao.Script;
+﻿using Automacao.Actions;
+using Automacao.Entity.Aws;
+//using Automacao.Script;
 using Automacao.Service.Aws;
 using Automacao.Command.Enum;
 using Automacao.Entity;
@@ -8,11 +9,12 @@ using Automacao.Entity;
 
 
 SettingsAws clientAws = new();
-MessagesAws device = new(clientAws, "1058511");
+MessagesAws device = new(clientAws, "105851");
 
 Profile profile = new (UsersEnum.MANOEL);
 
-await AcessoComTagValida.Execute(device, profile);
+bool resultInsertUser = await InsertUser.Execute(profile, device);
+Console.WriteLine(resultInsertUser);
 Console.WriteLine("FIM");
 
 

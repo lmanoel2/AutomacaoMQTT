@@ -26,7 +26,7 @@ namespace Automacao.Command.Kiper.Requests
             DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
             Id = id;
             Cmd = "insert_user";
-            Esn = "1058511";
+            Esn = "105851";
         }
     }
 }

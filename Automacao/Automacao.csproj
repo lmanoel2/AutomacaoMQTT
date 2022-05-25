@@ -16,17 +16,20 @@
     <Compile Remove="Command\Kiper\Publish\**" />
     <Compile Remove="Command\Actions.cs" />
     <Compile Remove="Command\Actions\**" />
+    <Compile Remove="Script\**" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Remove="Command\Kiper\Publish\**" />
     <EmbeddedResource Remove="Command\Actions\**" />
+    <EmbeddedResource Remove="Script\**" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Command\Kiper\Publish\**" />
     <None Remove="Command\Actions\**" />
     <None Remove="appsettings.json" />
+    <None Remove="Script\**" />
   </ItemGroup>
 
 </Project>

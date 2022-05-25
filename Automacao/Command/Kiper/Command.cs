@@ -41,8 +41,9 @@ namespace Automacao.Command.Kiper
                     if (device.GetMessageReceived() != null)
                     {
                         messageExpected.DateTimeNow = device.GetMessageReceived()?["datetime"].ToString();
-                        var jsonString = JsonSerializer.Serialize(messageExpected, new JsonSerializerOptions {WriteIndented = false});
                         
+                        var jsonString = JsonSerializer.Serialize(messageExpected, new JsonSerializerOptions {WriteIndented = false});
+                        Console.WriteLine(jsonString);
                         checkMessage = JToken.DeepEquals(JObject.Parse(jsonString), device.GetMessageReceived());
                         return;
                     }
