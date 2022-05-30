@@ -1,5 +1,5 @@
 ﻿using Automacao.Service.Aws;
-using static Automacao.Command.Kiper.Command;
+using static Automacao.Command.Kiper.Core.Command;
 using static Automacao.Command.Enum.CommandEnum;
 using Automacao.Entity;
 using static Automacao.Entity.Time;
@@ -7,7 +7,7 @@ using Automacao.Command.Kiper.Responses;
 
 namespace Automacao.Actions;
 
-public class InsertUser
+public class InsertUserAction
 {
     public static async Task<bool> Execute(Profile profile, MessagesAws device)
     {

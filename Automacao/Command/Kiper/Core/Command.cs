@@ -7,7 +7,7 @@ using Automacao.Entity;
 using Automacao.Service.Aws;
 using Newtonsoft.Json.Linq;
 
-namespace Automacao.Command.Kiper
+namespace Automacao.Command.Kiper.Core
 {
     internal static class Command
     {

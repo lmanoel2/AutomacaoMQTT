@@ -6,7 +6,7 @@ namespace Automacao.Entity
 {
     public class Profile
     {
-        public List<Ipwall> ListDevice { get; set; } = new List<Ipwall>();
+        public List<Ipwall> ListDeviceParams { get; set; } = new List<Ipwall>();
         public List<long> ListTags { get; set; } = new List<long>();
         public List<Rf> ListRf { get; set; } = new List<Rf>();
         public User User { get; set; } 
@@ -40,9 +40,9 @@ namespace Automacao.Entity
         private void AssemblyProfileManoel()
         {
             //DEVICES
-            ListDevice.Add(new Ipwall(181, 1,"172.16.50.181", "KVoice 181"));
-            ListDevice.Add(new Ipwall(184, 1, "172.16.50.184", "KVoice 184"));
-            
+            ListDeviceParams.Add(new Ipwall(181, 1,"172.16.50.181", "KVoice 181"));
+            ListDeviceParams.Add(new Ipwall(184, 1, "172.16.50.184", "KVoice 184"));
+
             //TAGS
             ListTags.Add(1234);
             ListTags.Add(55555);
@@ -63,7 +63,7 @@ namespace Automacao.Entity
                             accessCounter: 2,
                             restrictAccess: false,
                             daysWeek: new DaysWeek(new List<string>() { "08:00-12:00" }),
-                            ipwallAccess: new List<Ipwall>(ListDevice),
+                            ipwallAccess: new List<Ipwall>(ListDeviceParams),
                             rfs: new List<Rf>(ListRf),
                             tags: new List<long>(ListTags));
         }

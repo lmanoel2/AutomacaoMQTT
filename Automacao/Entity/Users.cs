@@ -4,7 +4,6 @@ namespace Automacao.Entity
 {
     public class Users
     {
-        
         public static User UserManoel()
         {
             User Manoel = new User(

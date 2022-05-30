@@ -13,7 +13,7 @@ MessagesAws device = new(clientAws, "105851");
 
 Profile profile = new (UsersEnum.MANOEL);
 
-bool resultInsertUser = await InsertUser.Execute(profile, device);
+bool resultInsertUser = await InsertUserAction.Execute(profile, device);
 Console.WriteLine(resultInsertUser);
 Console.WriteLine("FIM");
 

@@ -17,6 +17,7 @@
     <Compile Remove="Command\Actions.cs" />
     <Compile Remove="Command\Actions\**" />
     <Compile Remove="Script\**" />
+    <Compile Remove="Command\Kiper\Params\Ipwall-Editar.cs" />
   </ItemGroup>
 
   <ItemGroup>
